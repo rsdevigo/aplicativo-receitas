@@ -2,7 +2,7 @@ import React from "react"
 import {Link} from "gatsby"
 import IndexStyle from "./index.module.css"
 
-export default class Index extends React.Component{
+export default class Doces extends React.Component{
   constructor(props) {
     super(props);
   }
@@ -10,13 +10,13 @@ export default class Index extends React.Component{
   render() {
     return (
       <div>
-      <h1>Página Principal</h1>
-      <Link to="/doces">Carregar somente doces</Link>
-      <br />
+      <h1>Página Doces</h1>
       <Link to="/salgados">Carregar somente salgados</Link>
+      <br />
+      <Link to="/">Carregar Página principal</Link>
         {this.props.data.allMarkdownRemark.edges.map(({node}) => (
           <div>
-          <img width="250px" src={node.frontmatter.cover.publicURL} />
+          <img src={node.frontmatter.cover.publicURL} />
           <h1>{node.frontmatter.title}</h1>
           <p>{node.frontmatter.date}</p>
           <a href={node.frontmatter.path}>Acessar</a>
@@ -29,7 +29,7 @@ export default class Index extends React.Component{
 
 export const pageQuery = graphql`
 query {
-  allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}, limit: 1000, filter: {frontmatter: {destaque: {eq: true}}}) {
+  allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}, limit: 1000, filter: {frontmatter: {category: {eq: "doces"}}}) {
     edges {
       node {
         frontmatter {
